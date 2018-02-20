@@ -3,7 +3,7 @@
 // Project Name    : Lab1 - JS
 // Fiel Name       : app.js
 // Encoding        : UTF-8
-// Due Date   : February 16
+// Due Date   : February 23
 //
 // Copyright © 2018 Kenta Kodashima. All rights reserved.
 //
