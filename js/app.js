@@ -1,9 +1,9 @@
 // <!--
 // ======================================================================
-// Project Name    : Lab3 - JS
+// Project Name    : Lab1 - JS
 // Fiel Name       : app.js
 // Encoding        : UTF-8
-// Due Date   : February 13
+// Due Date   : February 16
 //
 // Copyright © 2018 Kenta Kodashima. All rights reserved.
 //
@@ -12,350 +12,160 @@
 // ======================================================================
 // -->
 
-// Question 1:a
-var arr = ['dog', 'cat', 'deer'];
-var result = arr[0]+arr[2];
-
-document.write("<h1>Question 1. a</h1>")
-document.write(result)
-
-// Question 1:b
-var girls = ["Cecilie", "Lone"];
-var boys = ["Emil", "Tobias", "Linus"];
-var children = girls.concat(boys);
-
-document.write("<h1>Question 1. b</h1>")
-document.write(children)
-
-// Question 1:c
-var arr = [ 20, 30 ];
-for (var i = arr.length; i < 5; i += 1) {
-	arr[i] = Math.pow(i,2);
+// Function1
+function makeAbba(a, b) {
+	return a + b + b + a
 }
 
-document.write("<h1>Question 1. c</h1>")
-document.write(arr)
+document.write("<h1>Function 1</h1>");
+document.write(makeAbba("Hi", "Bye"));
 
-// Question 1:d
-var arr = [ 10, 20, 30, 40, 50, 60, 70, 90];
-var sum = 0;
-for (var i = 1; i < 7; i += 1) {
-	sum = sum + arr[i];
-}
-
-var sum2 = 0;
-for (var i = 0; i < arr.length; i += 1) {
-	sum2 = sum2 + arr[i];
-}
-
-document.write("<h1>Question 1. d</h1>")
-document.write("Sum's value right after the loop is: " + sum + "<br/>")
-document.write("Sum's value after the adjustment is: " + sum2)
-
-// Question 1:e
-var DL = 5;
-var d = [25.0, 9.0, 10.0, 25.0, 15.0];
-var mi = 0;
-var m = d[mi];
-for (var i = 1; i < DL; i++) {
-	if (d[i] < m) {
-		mi = i;
-		m = d[mi];
-		console.log(m);
-	}
-}
-console.log("mi = ",mi, "m = " ,m);
-
-document.write("<h1>Question 1. e</h1>")
-document.write("mi = ",mi, "<br />m = " ,m)
-
-// Question 2
-function sumArray(arr) {
-	var sum = 0;
-	for (var i = 0; i < arr.length; i += 1) {
-		sum = sum + arr[i];
-	}
-	return sum
-}
-// variable for testing purpose
-var columnF = [15, 20, 25, 30, 35];
-document.write("<h1>Question 2.</h1>")
-document.write(sumArray(columnF))
-
-// Question3
-// Definition for canvases
-var panels = [];
-window.onload = function() {
-		var arr = ['', '1', '2', '3', '4', '5', '6', '7', '8'];
-
-    var board = document.getElementById('board');
-
-    // Make <div> and push into the board
-    for (i = 0; i < 9; i++){
-      var div = document.createElement('div');
-      div.className = 'panel';
-      div.index = i;
-      div.textContent = arr[i];
-      div.onclick = movePanels;
-			//div.onmouseover = changeColor;
-			//div.onmouseover = changeColor0;
-			div.onmouseout = changeBackColor;
-      board.appendChild(div);
-			if (div.textContent == '') {
-				div.style.backgroundColor = '#4fa871';
-			} else {
-				div.style.backgroundColor = '#996f1e';
-			}
-      panels.push(div);
-		}
-		// Adding different functions to change colors onmouseover
-		panels[0].onmouseover = changeColor0;
-		panels[1].onmouseover = changeColor1;
-		panels[2].onmouseover = changeColor2;
-		panels[3].onmouseover = changeColor3;
-		panels[4].onmouseover = changeColor4;
-		panels[5].onmouseover = changeColor5;
-		panels[6].onmouseover = changeColor6;
-		panels[7].onmouseover = changeColor7;
-		panels[8].onmouseover = changeColor8;
-}
-
-// Function called on clicks
-function swapArray(i, e) {
-	// i = i
-	// e = i (+ | -) (3 | 1)
-	var temp = panels[i].textContent;
-	//console.log(temp); // = 0
-	panels[i].textContent = panels[e].textContent;
-	//console.log(temp); // = 1
-	panels[e].textContent = temp;
-	//console.log(temp); // = 1
-
-	var div = document.getElementsByClassName('panel');
-	if (div[i].textContent == '') {
-		div[i].style.backgroundColor = '#4fa871';
-		counter();
-		endTimer();
-	}
-	if (div[e].textContent != '') {
-		div[e].style.backgroundColor = '#996f1e';
-	}
-}
-
-// Condition to move a panel
-function movePanels(e) {
-  var i = e.target.index;
-
-  if (i <= 5 && panels[i + 3].textContent == '' ){
-    // swap with down panel
-    swapArray(i, i + 3);
-  } else if ( i >= 3 && panels[i - 3].textContent == ''){
-    // swap with the panel above
-    swapArray(i, i - 3);
-  } else if (i % 3 !== 2 && panels[i + 1].textContent == ''){
-    // swap with right panel
-    swapArray(i, i + 1);
-  } else if (i % 3 !== 0 && panels[i - 1].textContent == ''){
-    // swap with left panel
-    swapArray(i, i - 1);
-  }
-}
-
-// Moves counter
-var moves = 1;
-function counter() {
-	var counter = document.getElementById('counter');
-	counter.innerHTML = "Moves: " + moves++;
-}
-
-// Shuffle the array
-function shuffleArray(arr) {
-
-	var n = arr.length;
-	var temp;
-	var i;
-	var findEmpty = false;
-	var findNotEmpty = false;
-
-	while (n) {
-		i = Math.floor(Math.random() * n--);
-		temp = arr[n].textContent;
-		arr[n].textContent = arr[i].textContent;
-		arr[i].textContent = temp;
-	}
-
-	// Change the background color depends on the text inside
-	for (var item in arr) {
-		if(arr[item].textContent == '') {
-			arr[item].style.backgroundColor = '#4fa871';
-		}
-		if(arr[item].textContent != '') {
-			arr[item].style.backgroundColor = '#996f1e';
-		}
-	}
-	return arr;
-}
-
-// Time counters
-var startTime, endTime;
-function startTimer() {
-	var startDate = new Date();
-	var startHours = startDate.getHours();
-	var startMinutes = startDate.getMinutes();
-	var startSeconds = startDate.getSeconds();
-	var startTimer = document.getElementById('startTimer');
-	startTimer.innerHTML = "Start time: " + startHours + ":" + startMinutes + ":" + startSeconds;
-}
-
-function endTimer() {
-	var endDate = new Date();
-	var endHours = endDate.getHours();
-	var endMinutes = endDate.getMinutes();
-	var endSeconds = endDate.getSeconds();
-	var endTimer = document.getElementById('endTimer');
-	if (panels[0].textContent == '' &&
-			panels[1].textContent == '1' &&
-			panels[2].textContent == '2' &&
-			panels[3].textContent == '3' &&
-			panels[4].textContent == '4' &&
-			panels[5].textContent == '5' &&
-			panels[6].textContent == '6' &&
-			panels[7].textContent == '7' &&
-			panels[8].textContent == '8') {
-				endTimer.innerHTML = "End time: " + endHours + ":" + endMinutes + ":" + endSeconds;
-	}
-}
-
-//Reset Button
-function reset() {
-	// reset counter
-	var counterContent = document.getElementById('counter');
-	counterContent.innerHTML = "Counting your moves...";
-	moves = 1;
-
-	// start timer again
-	startTimer();
-
-	// random Shuffle
-	shuffleArray(panels);
-
-	// reset endTimer
-	var endTimer = document.getElementById('endTimer');
-	endTimer.innerHTML = "";
-}
-
-// Changing colors depends on array index's condition
-function changeColor0() {
-	if (panels[0].textContent == '') {
-		return
-	} else if (panels[1].textContent == '' || panels[3].textContent == '') {
-		panels[0].style.backgroundColor = '#48DD00';
+// Function2
+function endsLy(s) {
+	if (s.includes("ly")) {
+		return true
 	} else {
-		panels[0].style.backgroundColor = '#FF0000';
+		return false
 	}
 }
 
-function changeColor1() {
-	if (panels[1].textContent == '') {
-		return
-	} else if (panels[0].textContent == '' ||
-						 panels[2].textContent == '' ||
-						 panels[4].textContent == '') {
-		panels[1].style.backgroundColor = '#48DD00';
+document.write("<h1>Function 2</h1>");
+document.write("'oddly' is: " + endsLy("oddly"));
+document.write("<br />");
+document.write("'oddy' is: " + endsLy("oddy"));
+
+// Function 3
+function firstHalf(str) {
+	//var separatedStr = str.split("");
+	if (str.length % 2 == 0) {
+		return str.substring(0, str.length / 2);
 	} else {
-		panels[1].style.backgroundColor = '#FF0000';
+		return "The length of the string must be even";
 	}
 }
 
-function changeColor2() {
-	if (panels[2].textContent == '') {
-		return
-	} else if (panels[1].textContent == '' ||
-						 panels[5].textContent == '') {
-		panels[2].style.backgroundColor = '#48DD00';
+//document.write("<h1>Function 3</h1>")
+document.write("<h1>Function 3</h1>");
+document.write("'WooHoo' is: "+ firstHalf("WooHoo"));
+
+//Function 4
+function right2(str) {
+	var strArray = str.split("");
+	var last2Chars = strArray.splice(strArray.length-2, 2);
+	return last2Chars.concat(strArray).join("");
+}
+
+document.write("<h1>Function 4</h1>");
+document.write(right2("Hello"));
+document.write("<br />")
+document.write(right2("java"));
+
+// Function 5
+function conCat(a, b) {
+	var separatedA = a.split("");
+	var separatedB = b.split("");
+	if (separatedA[separatedA.length-1] == separatedB[0]) {
+		separatedB.shift();
+		return separatedA.concat(separatedB).join("");
 	} else {
-		panels[2].style.backgroundColor = '#FF0000';
+		return separatedA.concat(separatedB).join("");
 	}
 }
 
-function changeColor3() {
-	if (panels[3].textContent == '') {
-		return
-	} else if (panels[0].textContent == '' ||
-						 panels[4].textContent == '' ||
-						 panels[6].textContent == '') {
-		panels[3].style.backgroundColor = '#48DD00';
+document.write("<h1>Function 5</h1>");
+document.write("'abc' + 'cat' is: " + conCat("abc", "cat"));
+document.write("<br />");
+document.write("'dog' + 'cat' is " + conCat("dog", "cat"));
+
+// Function 6
+function frontAgain(str) {
+	var separatedStr = str.split("");
+	if (separatedStr[0] == separatedStr[separatedStr.length-2] &&
+		 	separatedStr[1] == separatedStr[separatedStr.length-1]) {
+				return true;
 	} else {
-		panels[3].style.backgroundColor = '#FF0000';
+		return false;
 	}
 }
 
-function changeColor4() {
-	if (panels[4].textContent == '') {
-		return
-	} else if (panels[1].textContent == '' ||
-						 panels[3].textContent == '' ||
-						 panels[5].textContent == '' ||
-						 panels[7].textContent == '') {
-		panels[4].style.backgroundColor = '#48DD00';
+document.write("<h1>Function 6</h1>");
+document.write("'edited' is: " + frontAgain("edited"));
+document.write("<br />");
+document.write("'edit' is: " + frontAgain("edit"));
+
+// Function 7
+function deFront(str) {
+	var strArray = str.split("");
+	if (strArray[0] == "a" && strArray[1] == "b") {
+		return strArray.join("");
+	} else if (strArray[0] == "a") {
+		strArray.splice(1, 1);
+		return strArray.join("");
+		//return strArray.shift().join("");
+	} else if (strArray[1] == "b") {
+		strArray.splice(0, 1);
+		return strArray.join("");
 	} else {
-		panels[4].style.backgroundColor = '#FF0000';
+		strArray.splice(0, 2);
+		return strArray.join("");
 	}
 }
 
-function changeColor5() {
-	if (panels[5].textContent == '') {
-		return
-	} else if (panels[2].textContent == '' ||
-						 panels[4].textContent == '' ||
-						 panels[8].textContent == '') {
-		panels[5].style.backgroundColor = '#48DD00';
+document.write("<h1>Function 7</h1>");
+document.write("'Hello' is: " + deFront("Hello"));
+document.write("<br />");
+document.write("'away' is: " + deFront("away"));
+
+// Function 8
+function withoutX2(str) {
+	var strArray = str.split("");
+	if (strArray[0] == "x" && strArray[1] == "x") {
+		strArray.splice(0, 2);
+		return strArray.join("");
+	} else if (strArray[0] == "x") {
+		strArray.splice(0, 1);
+		return strArray.join("");
+		//return strArray.shift().join("");
+	} else if (strArray[1] == "x") {
+		strArray.splice(1, 1);
+		return strArray.join("");
 	} else {
-		panels[5].style.backgroundColor = '#FF0000';
+		return strArray.join("");
 	}
 }
 
-function changeColor6() {
-	if (panels[6].textContent == '') {
-		return
-	} else if (panels[3].textContent == '' ||
-						 panels[7].textContent == '') {
-	  panels[6].style.backgroundColor = '#48DD00';
+document.write("<h1>Function 8</h1>");
+document.write("'xHi' is: " + withoutX2("xHi"));
+document.write("<br />");
+document.write("'Hxi' is: " + withoutX2("Hxi"));
+document.write("<br />");
+document.write("'Hi' is: " + withoutX2("Hi"));
+
+// Function 9
+function lastChars(a, b) {
+	var separatedA = a.split("");
+	var separatedB = b.split("");
+	return separatedA[0] + separatedB[separatedB.length-1];
+}
+
+document.write("<h1>Function 9</h1>");
+document.write("'last' and 'chars' are: " + lastChars("last", "chars"));
+document.write("<br />");
+document.write("'yo' and 'java' are: " + lastChars("yo", "java"));
+
+// Function 10
+function middleTwo(str) {
+	var strArray = str.split("");
+	if (strArray.length == 2) {
+		return "The string length must be at least 2.";
+	} else if (strArray.length % 2 != 0) {
+		return "The string length must be an even number.";
 	} else {
-		panels[6].style.backgroundColor = '#FF0000';
+		return strArray[strArray.length/2-1] + strArray[strArray.length/2];
 	}
 }
 
-function changeColor7() {
-	if (panels[7].textContent == '') {
-		return
-	} else if (panels[4].textContent == '' ||
-						 panels[6].textContent == '' ||
-						 panels[8].textContent == '') {
-		panels[7].style.backgroundColor = '#48DD00';
-	} else {
-		panels[7].style.backgroundColor = '#FF0000';
-	}
-}
-
-function changeColor8() {
-	if (panels[8].textContent == '') {
-		return
-	} else if (panels[5].textContent == '' ||
-						 panels[7].textContent == '') {
-		panels[8].style.backgroundColor = '#48DD00';
-	} else {
-		panels[8].style.backgroundColor = '#FF0000';
-	}
-}
-
-function changeBackColor() {
-	for (var item in panels) {
-		if(panels[item].textContent == '') {
-			panels[item].style.backgroundColor = '#4fa871';
-		}
-		if(panels[item].textContent != '') {
-			panels[item].style.backgroundColor = '#996f1e';
-		}
-	}
-}
+document.write("<h1>Function 10</h1>");
+document.write("'string' becomes: " + middleTwo("string"));
+document.write("<br />");
+document.write("'Practice' becomes: " + middleTwo("Practice"));
